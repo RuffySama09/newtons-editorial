@@ -15,7 +15,7 @@
             --cream: #F2EFE9;       /* Paper Texture */
             --brass: #D4A353;       /* Gold Accent */
             --charcoal: #1a1a1a;
-            --overlay: rgba(15, 40, 34, 0.85);
+            --overlay: rgba(15, 40, 34, 0.9);
         }
 
         /* 0. RESET */
@@ -59,7 +59,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            mix-blend-mode: difference; /* Makes nav visible on any bg */
+            mix-blend-mode: difference;
             color: #fff;
         }
         .logo { font-family: 'DM Serif Display', serif; font-size: 1.8rem; }
@@ -84,8 +84,9 @@
         .hero-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1920&auto=format&fit=crop') center/cover;
-            opacity: 0.2;
+            /* Reliable Unsplash ID for Bar Vibe */
+            background: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1920&auto=format&fit=crop') center/cover;
+            opacity: 0.3;
             filter: grayscale(100%);
             z-index: -1;
         }
@@ -108,7 +109,6 @@
         .line { width: 100px; height: 1px; background: var(--cream); }
 
         /* 4. THE INTERACTIVE MENU (The "Crazy" Part) */
-        /* Logic: Hovering list items changes the background image of the section */
         .interactive-menu {
             position: relative;
             min-height: 100vh;
@@ -121,12 +121,12 @@
         /* The dynamic background container */
         .menu-bg-container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.6;
+            opacity: 0.5;
             transition: background-image 0.5s ease-in-out;
             background-size: cover;
             background-position: center;
-            background-image: url('https://images.unsplash.com/photo-1585937421612-70a008356f36?q=80&w=1920&auto=format&fit=crop'); /* Default Image */
-            filter: brightness(0.7);
+            /* Default: General Indian Food Spread */
+            background-image: url('https://images.unsplash.com/photo-1585937421612-70a008356f36?q=80&w=1920&auto=format&fit=crop'); 
         }
 
         .menu-content {
@@ -168,6 +168,8 @@
         .text-block p { font-size: 1.1rem; margin-bottom: 20px; color: #444; }
         
         .img-block { position: relative; overflow: hidden; }
+        
+        /* Fixed: Reliable Rooftop/Bar Image */
         .img-block img { 
             width: 100%; display: block; 
             transition: transform 1.5s ease; 
@@ -216,8 +218,8 @@
         <div class="hero-bg"></div>
         <span class="mono hero-label">Est. HAL 2nd Stage</span>
         <h1 class="hero-title">
-            The Legend<br>
-            <span class="italic">of the North.</span>
+            A True<br>
+            <span class="italic">Bangalore Classic.</span>
         </h1>
         <div class="scroll-indicator">
             <span class="mono">Scroll to Explore</span>
@@ -236,19 +238,19 @@
             </div>
             
             <div class="dish-list">
-                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?q=80&w=1920&auto=format&fit=crop')">
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=1920&auto=format&fit=crop')">
                     Butter Chicken <span>₹320</span>
                 </div>
-                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1628294895950-98052523e036?q=80&w=1920&auto=format&fit=crop')">
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=1920&auto=format&fit=crop')">
                     Mutton Rogan Josh <span>₹380</span>
                 </div>
-                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1517244683847-745431346aea?q=80&w=1920&auto=format&fit=crop')">
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1599487484698-8860b89728b5?q=80&w=1920&auto=format&fit=crop')">
                     Tandoori Platter <span>₹550</span>
                 </div>
-                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1606471191009-63994c53433b?q=80&w=1920&auto=format&fit=crop')">
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1585937421612-70a008356f36?q=80&w=1920&auto=format&fit=crop')">
                     Dal Makhani <span>₹240</span>
                 </div>
-                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=1920&auto=format&fit=crop')">
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1612528443702-f674015b6753?q=80&w=1920&auto=format&fit=crop')">
                     Draught Beer <span>₹180</span>
                 </div>
             </div>
@@ -264,10 +266,10 @@
                     <p>Located in the heart of HAL 2nd Stage, Newton's is a sanctuary. We blend the nostalgia of Old Bangalore clubs with the energy of a modern resto-bar.</p>
                     <p>Whether it's a family dinner or a Friday night with colleagues, our open-air section provides the perfect backdrop.</p>
                     <br>
-                    <a href="https://goo.gl/maps/YOUR_LINK" style="color: var(--emerald); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--emerald);">GET DIRECTIONS</a>
+                    <a href="https://maps.app.goo.gl/3yXA1EhcHuxvNiUs7" style="color: var(--emerald); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--emerald);">GET DIRECTIONS</a>
                 </div>
                 <div class="img-block">
-                    <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1000&auto=format&fit=crop" alt="Rooftop Vibe">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop" alt="Rooftop Vibe">
                     <div class="stamp">
                         OPEN<br>DAILY
                     </div>
@@ -296,12 +298,25 @@
         });
 
         // 2. Interactive Menu Logic
-        // Preload images to prevent flickering (Optional but recommended)
         const bgContainer = document.getElementById('dynamic-bg');
         
         function changeBg(imageUrl) {
             bgContainer.style.backgroundImage = `url('${imageUrl}')`;
         }
+
+        // 3. Preload Images (Prevents flickering on first hover)
+        const imagesToPreload = [
+            'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=1920&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=1920&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1599487484698-8860b89728b5?q=80&w=1920&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1585937421612-70a008356f36?q=80&w=1920&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1612528443702-f674015b6753?q=80&w=1920&auto=format&fit=crop'
+        ];
+
+        imagesToPreload.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
     </script>
 </body>
 </html>
