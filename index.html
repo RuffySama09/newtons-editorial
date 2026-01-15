@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEWTON'S | The Heritage Table</title>
+    <meta name="description" content="Newton's Resto Bar. A culinary institution on Old Airport Road. Authentic North Indian cuisine in a setting that honors Old Bangalore.">
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&f[]=dm-serif-display@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --emerald: #0f2822;     /* Deep Club Green */
+            --cream: #F2EFE9;       /* Paper Texture */
+            --brass: #D4A353;       /* Gold Accent */
+            --charcoal: #1a1a1a;
+            --overlay: rgba(15, 40, 34, 0.9);
+        }
+
+        /* 0. RESET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--emerald);
+            color: var(--cream);
+            font-family: 'Satoshi', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+        .mono { font-family: 'Courier New', monospace; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
+
+        /* 1. LOADER */
+        .loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: var(--cream);
+            color: var(--emerald);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .loader-text { font-family: 'DM Serif Display', serif; font-size: 4rem; overflow: hidden; }
+        .loader-text span { display: inline-block; transform: translateY(100%); animation: textReveal 1s forwards; }
+        @keyframes textReveal { to { transform: translateY(0); } }
+
+        /* 2. NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+            color: #fff;
+        }
+        .logo { font-family: 'DM Serif Display', serif; font-size: 1.8rem; }
+        .reserve-btn { 
+            border: 1px solid #fff; padding: 10px 30px; border-radius: 50px; 
+            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; 
+            text-decoration: none; color: #fff; transition: 0.3s;
+        }
+        .reserve-btn:hover { background: #fff; color: var(--emerald); }
+
+        /* 3. HERO - MAGAZINE COVER STYLE */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5vw;
+            border-bottom: 1px solid rgba(242, 239, 233, 0.1);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Reliable Unsplash ID for Bar Vibe */
+            background: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1920&auto=format&fit=crop') center/cover;
+            opacity: 0.3;
+            filter: grayscale(100%);
+            z-index: -1;
+        }
+
+        .hero-label { color: var(--brass); margin-bottom: 20px; display: block; }
+        
+        .hero-title {
+            font-size: clamp(4rem, 12vw, 9rem);
+            line-height: 0.85;
+            color: var(--cream);
+            margin-bottom: 40px;
+        }
+        .hero-title span { display: block; }
+        .italic { font-style: italic; font-family: 'DM Serif Display', serif; color: var(--brass); }
+
+        .scroll-indicator {
+            position: absolute; bottom: 40px; right: 50px;
+            display: flex; align-items: center; gap: 20px;
+        }
+        .line { width: 100px; height: 1px; background: var(--cream); }
+
+        /* 4. THE INTERACTIVE MENU (The "Crazy" Part) */
+        .interactive-menu {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: #000;
+        }
+
+        /* The dynamic background container */
+        .menu-bg-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.5;
+            transition: background-image 0.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            /* Default: General Indian Food Spread */
+            background-image: url('https://images.unsplash.com/photo-1585937421612-70a008356f36?q=80&w=1920&auto=format&fit=crop'); 
+        }
+
+        .menu-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 0 10vw;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+        }
+
+        .menu-header h2 { font-size: 4rem; margin-bottom: 30px; color: var(--cream); }
+        .menu-header p { max-width: 300px; color: #ccc; }
+
+        .dish-list { display: flex; flex-direction: column; }
+        
+        .dish-item {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: 0.4s;
+            line-height: 1.2;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .dish-item:hover { color: var(--cream); padding-left: 30px; }
+        .dish-item span { font-size: 1.5rem; vertical-align: middle; color: var(--brass); opacity: 0; transition: 0.4s; font-family: 'Satoshi', sans-serif; }
+        .dish-item:hover span { opacity: 1; margin-left: 20px; }
+
+        /* 5. EDITORIAL GRID */
+        .editorial { background: var(--cream); color: var(--emerald); padding: 100px 0; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+        
+        .grid-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items: center; }
+        
+        .text-block h3 { font-size: 3rem; margin-bottom: 30px; line-height: 1.1; }
+        .text-block p { font-size: 1.1rem; margin-bottom: 20px; color: #444; }
+        
+        .img-block { position: relative; overflow: hidden; }
+        
+        /* Fixed: Reliable Rooftop/Bar Image */
+        .img-block img { 
+            width: 100%; display: block; 
+            transition: transform 1.5s ease; 
+        }
+        .img-block:hover img { transform: scale(1.1); }
+        
+        .stamp {
+            position: absolute; top: -20px; right: -20px;
+            width: 120px; height: 120px;
+            background: var(--brass);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            font-weight: 700; color: var(--emerald);
+            transform: rotate(15deg);
+        }
+
+        /* 6. FOOTER */
+        footer { padding: 80px 50px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: flex-end; }
+        .footer-big { font-size: 10vw; font-family: 'DM Serif Display', serif; color: var(--brass); line-height: 0.8; opacity: 0.2; }
+        .footer-info p { margin-bottom: 10px; color: #aaa; }
+
+        @media (max-width: 768px) {
+            .menu-content { grid-template-columns: 1fr; }
+            .menu-header { margin-bottom: 50px; }
+            .grid-layout { grid-template-columns: 1fr; }
+            .footer-big { display: none; }
+            footer { flex-direction: column; align-items: flex-start; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loader" id="loader">
+        <div class="loader-text">
+            <span>NEWTON'S</span>
+        </div>
+    </div>
+
+    <nav>
+        <div class="logo">Newton's.</div>
+        <a href="tel:+918025225225" class="reserve-btn">Reserve Table</a>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <span class="mono hero-label">Est. HAL 2nd Stage</span>
+        <h1 class="hero-title">
+            A True<br>
+            <span class="italic">Bangalore Classic.</span>
+        </h1>
+        <div class="scroll-indicator">
+            <span class="mono">Scroll to Explore</span>
+            <div class="line"></div>
+        </div>
+    </header>
+
+    <section class="interactive-menu" id="menu">
+        <div class="menu-bg-container" id="dynamic-bg"></div>
+        
+        <div class="menu-content">
+            <div class="menu-header">
+                <span class="mono" style="color: var(--brass); display: block; margin-bottom: 20px;">The Selection</span>
+                <h2>Curated<br>Classics</h2>
+                <p>Hover over the dishes to visualize the taste. Authentic North Indian flavors prepared with patience.</p>
+            </div>
+            
+            <div class="dish-list">
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=1920&auto=format&fit=crop')">
+                    Butter Chicken <span>₹320</span>
+                </div>
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=1920&auto=format&fit=crop')">
+                    Mutton Rogan Josh <span>₹380</span>
+                </div>
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1599487484698-8860b89728b5?q=80&w=1920&auto=format&fit=crop')">
+                    Tandoori Platter <span>₹550</span>
+                </div>
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1585937421612-70a008356f36?q=80&w=1920&auto=format&fit=crop')">
+                    Dal Makhani <span>₹240</span>
+                </div>
+                <div class="dish-item" onmouseover="changeBg('https://images.unsplash.com/photo-1612528443702-f674015b6753?q=80&w=1920&auto=format&fit=crop')">
+                    Draught Beer <span>₹180</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="editorial">
+        <div class="container">
+            <div class="grid-layout">
+                <div class="text-block">
+                    <span class="mono" style="color: #666; margin-bottom: 20px; display: block;">The Vibe</span>
+                    <h3>A Rooftop Above<br>The Noise.</h3>
+                    <p>Located in the heart of HAL 2nd Stage, Newton's is a sanctuary. We blend the nostalgia of Old Bangalore clubs with the energy of a modern resto-bar.</p>
+                    <p>Whether it's a family dinner or a Friday night with colleagues, our open-air section provides the perfect backdrop.</p>
+                    <br>
+                    <a href="https://maps.app.goo.gl/3yXA1EhcHuxvNiUs7" style="color: var(--emerald); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--emerald);">GET DIRECTIONS</a>
+                </div>
+                <div class="img-block">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop" alt="Rooftop Vibe">
+                    <div class="stamp">
+                        OPEN<br>DAILY
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-info">
+            <h4 class="logo" style="margin-bottom: 20px;">Newton's.</h4>
+            <p>4121/Q, HAL Old Airport Rd</p>
+            <p>Bengaluru, Karnataka 560008</p>
+            <br>
+            <p class="mono" style="color: var(--brass);">© 2026 Newton's Resto Bar</p>
+        </div>
+        <div class="footer-big">EST 2018</div>
+    </footer>
+
+    <script>
+        // 1. Loader Fade Out
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.transform = 'translateY(-100%)';
+            }, 1200);
+        });
+
+        // 2. Interactive Menu Logic
+        const bgContainer = document.getElementById('dynamic-bg');
+        
+        function changeBg(imageUrl) {
+            bgContainer.style.backgroundImage = `url('${imageUrl}')`;
+        }
+
+        // 3. Preload Images (Prevents flickering on first hover)
+        const imagesToPreload = [
+            'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?q=80&w=1920&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=1920&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1599487484698-8860b89728b5?q=80&w=1920&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1585937421612-70a008356f36?q=80&w=1920&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1612528443702-f674015b6753?q=80&w=1920&auto=format&fit=crop'
+        ];
+
+        imagesToPreload.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    </script>
+</body>
+</html>
